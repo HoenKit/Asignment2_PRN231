@@ -1,0 +1,29 @@
+﻿@page
+@model eBookStore.Pages.Publishers.EditModel
+@{
+}
+<h2>Edit Publisher</h2>
+
+<form method="post">
+    <input type="hidden" asp-for="Publisher.pub_id" />
+
+    <div class="form-group">
+        <label>Publisher Name</label>
+        <input asp-for="Publisher.publisher_name" class="form-control" required />
+    </div>
+    <div class="form-group">
+        <label>City</label>
+        <input asp-for="Publisher.city" class="form-control" required />
+    </div>
+    <div class="form-group">
+        <label>State</label>
+        <input asp-for="Publisher.state" class="form-control" required />
+    </div>
+    <div class="form-group">
+        <label>Country</label>
+        <input asp-for="Publisher.country" class="form-control" required />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+    <a asp-page="Index" class="btn btn-secondary">Cancel</a>
+</form>

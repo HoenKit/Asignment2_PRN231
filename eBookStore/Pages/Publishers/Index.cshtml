@@ -1,0 +1,35 @@
+﻿@page
+@model eBookStore.Pages.Publishers.IndexModel
+@{
+}
+<h2>Publishers List</h2>
+<a asp-page="Create" class="btn btn-primary">Create New Publisher</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Publisher Name</th>
+            <th>City</th>
+            <th>State</th>
+            <th>Country</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var publisher in Model.Publishers)
+        {
+            <tr>
+                <td>@publisher.pub_id</td>
+                <td>@publisher.publisher_name</td>
+                <td>@publisher.city</td>
+                <td>@publisher.state</td>
+                <td>@publisher.country</td>
+                <td>
+                    <a asp-page="Edit" asp-route-id="@publisher.pub_id" class="btn btn-warning">Edit</a>
+                    <a asp-page="Delete" asp-route-id="@publisher.pub_id" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

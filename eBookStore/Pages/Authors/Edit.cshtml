@@ -1,0 +1,59 @@
+﻿@page
+@model eBookStore.Pages.Authors.EditModel
+@{
+}
+<h2>Edit Author</h2>
+
+<form method="post">
+    <input asp-for="Author.author_id" type="hidden" />
+    <div class="form-group">
+        <label for="first_name">First Name</label>
+        <input asp-for="Author.first_name" class="form-control" />
+        <span asp-validation-for="Author.first_name" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="last_name">Last Name</label>
+        <input asp-for="Author.last_name" class="form-control" />
+        <span asp-validation-for="Author.last_name" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="phone">Phone</label>
+        <input asp-for="Author.phone" class="form-control" />
+        <span asp-validation-for="Author.phone" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="address">Address</label>
+        <input asp-for="Author.address" class="form-control" />
+        <span asp-validation-for="Author.address" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="city">City</label>
+        <input asp-for="Author.city" class="form-control" />
+        <span asp-validation-for="Author.city" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="state">State</label>
+        <input asp-for="Author.state" class="form-control" />
+        <span asp-validation-for="Author.state" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="zip">ZIP Code</label>
+        <input asp-for="Author.zip" class="form-control" />
+        <span asp-validation-for="Author.zip" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="email_address">Email Address</label>
+        <input asp-for="Author.email_address" class="form-control" />
+        <span asp-validation-for="Author.email_address" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a asp-page="Index" class="btn btn-secondary">Cancel</a>
+</form>

@@ -1,0 +1,22 @@
+﻿@page
+@model eBookStore.Pages.Publishers.DeleteModel
+@{
+}
+<h2>Delete Publisher</h2>
+
+<h3>Are you sure you want to delete this publisher?</h3>
+
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">@Model.Publisher.publisher_name</h4>
+        <p><strong>City:</strong> @Model.Publisher.city</p>
+        <p><strong>State:</strong> @Model.Publisher.state</p>
+        <p><strong>Country:</strong> @Model.Publisher.country</p>
+    </div>
+</div>
+
+<form method="post">
+    <input type="hidden" asp-for="Publisher.pub_id" />
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a asp-page="Index" class="btn btn-secondary">Cancel</a>
+</form>
