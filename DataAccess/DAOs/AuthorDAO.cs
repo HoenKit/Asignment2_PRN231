@@ -17,29 +17,29 @@ namespace DataAccess.DAOs
             _context = context;
         }
 
-        public List<Author> GetAllAuthors()
+        public List<Author> GetAll()
         {
             return _context.Author.ToList();
         }
 
-        public Author GetAuthorById(int authorId)
+        public Author GetById(int authorId)
         {
             return _context.Author.Find(authorId);
         }
 
-        public void AddAuthor(Author author)
+        public void Add(Author author)
         {
             _context.Author.Add(author);
             _context.SaveChanges();
         }
 
-        public void UpdateAuthor(Author author)
+        public void Update(Author author)
         {
             _context.Author.Update(author);
             _context.SaveChanges();
         }
 
-        public void DeleteAuthor(int authorId)
+        public void Delete(int authorId)
         {
             var author = _context.Author.Find(authorId);
             if (author != null)

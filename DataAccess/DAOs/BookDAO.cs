@@ -18,31 +18,31 @@ namespace DataAccess.DAOs
             _context = context;
         }
 
-        public List<Book> GetAllBooks()
+        public List<Book> GetAll()
         {
             return _context.Books.Include(b => b.Publisher).ToList();
         }
 
-        public Book GetBookById(int bookId)
+        public Book GetById(int bookId)
         {
             return _context.Books
                 .Include(b => b.Publisher)
                 .FirstOrDefault(b => b.book_id == bookId);
         }
 
-        public void AddBook(Book book)
+        public void Add(Book book)
         {
             _context.Books.Add(book);
             _context.SaveChanges();
         }
 
-        public void UpdateBook(Book book)
+        public void Update(Book book)
         {
             _context.Books.Update(book);
             _context.SaveChanges();
         }
 
-        public void DeleteBook(int bookId)
+        public void Delete(int bookId)
         {
             var book = _context.Books.Find(bookId);
             if (book != null)

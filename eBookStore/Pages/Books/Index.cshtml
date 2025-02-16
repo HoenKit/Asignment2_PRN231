@@ -1,0 +1,42 @@
+﻿@page
+@model eBookStore.Pages.Books.IndexModel
+@{
+}
+<h2>Danh sách sách</h2>
+<a asp-page="Create" class="btn btn-primary">Thêm sách</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Type</th>
+            <th>Price</th>
+            <th>Advance</th>
+            <th>Royalty</th>
+            <th>Sales</th>
+            <th>Notes</th>
+            <th>Published Date</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var book in Model.Books)
+        {
+            <tr>
+                <td>@book.book_id</td>
+                <td>@book.Title</td>
+                <td>@book.type</td>
+                <td>@book.price</td>
+                <td>@book.advance</td>
+                <td>@book.royalty</td>
+                <td>@book.ytd_sales</td>
+                <td>@book.notes</td>
+                <td>@book.published_date.ToString("dd-MM-yyyy")</td>
+                <td>
+                    <a asp-page="Edit" asp-route-id="@book.book_id" class="btn btn-warning">Sửa</a>
+                    <a asp-page="Delete" asp-route-id="@book.book_id" class="btn btn-danger">Xóa</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

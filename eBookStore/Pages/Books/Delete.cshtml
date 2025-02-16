@@ -1,0 +1,28 @@
+﻿@page
+@model eBookStore.Pages.Books.DeleteModel
+@{
+}
+
+<h2>Xóa sách</h2>
+
+<p>Bạn có chắc chắn muốn xóa sách này không?</p>
+
+<table class="table">
+    <tr><th>ID</th><td>@Model.Book.book_id</td></tr>
+    <tr><th>Title</th><td>@Model.Book.Title</td></tr>
+    <tr><th>Type</th><td>@Model.Book.type</td></tr>
+    <tr><th>Price</th><td>@Model.Book.price</td></tr>
+    <tr><th>Publisher Id</th><td>@Model.Book.pub_id</td></tr>
+    <tr><th>Advance</th><td>@Model.Book.advance</td></tr>
+    <tr><th>Royalty</th><td>@Model.Book.royalty</td></tr>
+    <tr><th>YTD Sales</th><td>@Model.Book.ytd_sales</td></tr>
+    <tr><th>Notes</th><td>@Model.Book.notes</td></tr>
+    <tr><th>Published Date</th><td>@Model.Book.published_date.ToString("yyyy-MM-dd")</td></tr>
+</table>
+
+<form method="post">
+    <input type="hidden" asp-for="Book.book_id" />
+    <button type="submit" class="btn btn-danger">Xóa</button>
+    <a asp-page="Index" class="btn btn-secondary">Hủy</a>
+</form>
+
