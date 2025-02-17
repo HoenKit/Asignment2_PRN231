@@ -1,5 +1,6 @@
 ﻿using BusinessObject.Models;
 using DataAccess.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Formatter;
 using Microsoft.AspNetCore.OData.Query;
@@ -8,6 +9,7 @@ using Microsoft.AspNetCore.OData.Routing.Controllers;
 namespace eBookStoreWebAPI.Controllers
 {
     [Route("odata/[controller]")]
+    [Authorize]
     public class PublishersController : ODataController
     {
         private readonly IPublisherRepository _publisherRepository;
@@ -31,6 +33,7 @@ namespace eBookStoreWebAPI.Controllers
             return Ok(publisher);
         }
         [HttpPost]
+        [Authorize(Roles = "Administration")]
         public IActionResult Create([FromBody] Publisher publisher)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
@@ -38,6 +41,7 @@ namespace eBookStoreWebAPI.Controllers
             return Created($"odata/Publishers({publisher.pub_id})", publisher);
         }
         [HttpPut]
+        [Authorize(Roles = "Administration")]
         public IActionResult Update([FromODataUri] int key, [FromBody] Publisher publisher)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
@@ -47,6 +51,7 @@ namespace eBookStoreWebAPI.Controllers
             return NoContent();
         }
         [HttpDelete]
+        [Authorize(Roles = "Administration")]
         public IActionResult Remove([FromODataUri] int key)
         {
             var publisher = _publisherRepository.GetById(key);

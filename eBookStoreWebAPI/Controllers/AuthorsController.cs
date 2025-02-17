@@ -1,6 +1,7 @@
 ﻿using BusinessObject.Models;
 using DataAccess.Repository;
 using Microsoft.AspNet.OData.Routing;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Formatter;
 using Microsoft.AspNetCore.OData.Query;
@@ -9,9 +10,9 @@ using Microsoft.AspNetCore.OData.Routing.Controllers;
 
 namespace eBookStoreWebAPI.Controllers
 {
-    [ODataRouteComponent("odata")]
     [Route("odata/[controller]")]
     [ApiController]
+    [Authorize]
     public class AuthorsController : ODataController
     {
         private readonly IAuthorRepository _authorRepository;
@@ -39,6 +40,7 @@ namespace eBookStoreWebAPI.Controllers
         }
 
         // POST: odata/Authors
+        [Authorize(Roles = "Administration")]
         [HttpPost]
         public IActionResult Create([FromBody] Author author)
         {
@@ -49,6 +51,7 @@ namespace eBookStoreWebAPI.Controllers
         }
 
         // PUT: odata/Authors(1)
+        [Authorize(Roles = "Administration")]
         [HttpPut]
         public IActionResult Update( int key, [FromBody] Author author)
         {
@@ -60,6 +63,7 @@ namespace eBookStoreWebAPI.Controllers
         }
 
         // DELETE: odata/Authors(1)
+        [Authorize(Roles = "Administration")]
         [HttpDelete]
         public IActionResult Remove( int key)
         {

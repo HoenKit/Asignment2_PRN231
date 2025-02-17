@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Net.Http.Headers;
 using System.Text.Json;
 
 namespace eBookStore.Pages.Books
@@ -15,14 +16,23 @@ namespace eBookStore.Pages.Books
 
         public List<BookDto> Books { get; set; } = new();
 
-        public async Task OnGetAsync()
+        public async Task<IActionResult> OnGetAsync()
         {
+            var token = Request.Cookies["Token"];
+
+            if (string.IsNullOrEmpty(token))
+            {
+                return Unauthorized(); // Or redirect to login page
+            }
+            // Add the Authorization header with Bearer token
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             var response = await _httpClient.GetAsync("Books");
             if (response.IsSuccessStatusCode)
             {
                 var json = await response.Content.ReadAsStringAsync();
                 Books = JsonSerializer.Deserialize<List<BookDto>>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
             }
+            return Page();
         }
     }
 

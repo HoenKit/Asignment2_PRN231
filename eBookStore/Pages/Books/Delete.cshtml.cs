@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Net;
+using System.Net.Http.Headers;
 using System.Text.Json;
 
 namespace eBookStore.Pages.Books
@@ -18,6 +20,14 @@ namespace eBookStore.Pages.Books
 
         public async Task<IActionResult> OnGetAsync(int id)
         {
+            var token = Request.Cookies["Token"];
+
+            if (string.IsNullOrEmpty(token))
+            {
+                return Unauthorized(); // Or redirect to login page
+            }
+            // Add the Authorization header with Bearer token
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             var response = await _httpClient.GetAsync($"Books/get-by-id?key={id}");
             if (response.IsSuccessStatusCode)
             {
@@ -30,7 +40,19 @@ namespace eBookStore.Pages.Books
 
         public async Task<IActionResult> OnPostAsync()
         {
+            var token = Request.Cookies["Token"];
+
+            if (string.IsNullOrEmpty(token))
+            {
+                return Unauthorized(); // Or redirect to login page
+            }
+            // Add the Authorization header with Bearer token
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             var response = await _httpClient.DeleteAsync($"Books?key={Book.book_id}");
+            if (response.StatusCode == HttpStatusCode.Forbidden)
+            {
+                return RedirectToPage("/AccessDenied");
+            }
             if (response.IsSuccessStatusCode)
             {
                 return RedirectToPage("Index");

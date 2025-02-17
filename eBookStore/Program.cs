@@ -6,6 +6,12 @@ builder.Services.AddHttpClient("BookApi", client =>
 {
     client.BaseAddress = new Uri("https://localhost:7007/odata/"); 
 });
+builder.Services.AddHttpClient("ApiClient", client =>
+{
+    client.BaseAddress = new Uri("https://localhost:7007/api/");
+});
+builder.Services.AddSession();
+
 
 var app = builder.Build();
 
@@ -19,8 +25,21 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
+app.UseSession();
 app.UseRouting();
+app.Use(async (context, next) =>
+{
+    await next(); 
+
+    if (context.Response.StatusCode == 401)
+    {
+        context.Response.Redirect("/Index"); 
+    }
+    else if (context.Response.StatusCode == 403)
+    {
+        context.Response.Redirect("/AccessDenied"); 
+    }
+});
 
 app.UseAuthorization();
 

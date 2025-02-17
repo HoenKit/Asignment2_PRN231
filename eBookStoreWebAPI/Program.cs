@@ -2,16 +2,35 @@ using BusinessObject;
 using BusinessObject.Models;
 using DataAccess.DAOs;
 using DataAccess.Repository;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.OData;
 using Microsoft.AspNetCore.OData.Routing;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OData.ModelBuilder;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddDbContext<eBookStoreContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("MyConnection")));
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+.AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = false,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = builder.Configuration["Jwt:Issuer"],
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+    };
+});
+
+builder.Services.AddAuthorization();
 
 // Config OData Model
 var modelBuilder = new ODataConventionModelBuilder();
@@ -35,11 +54,13 @@ builder.Services.AddControllers()
 builder.Services.AddScoped<AuthorDAO>();
 builder.Services.AddScoped<BookDAO>();
 builder.Services.AddScoped<PublisherDAO>();
+builder.Services.AddScoped<UserDAO>();
 
 // Register Repository
 builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
 builder.Services.AddScoped<IBookRepository, BookRepository>();
 builder.Services.AddScoped<IPublisherRepository, PublisherRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 builder.Services.AddCors(options =>
 {
@@ -97,6 +118,8 @@ app.Use(next => context =>
     }
     return next(context);
 });
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 
