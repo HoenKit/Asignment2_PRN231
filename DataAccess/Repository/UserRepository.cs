@@ -21,6 +21,16 @@ namespace DataAccess.Repository
         {
             return _userDao.Authenticate(email, password);
         }
+
+        public User GetById(int id)
+        {
+            return _userDao.GetById(id);
+        }
+
+        public void Update(User user)
+        {
+            _userDao.Update(user);
+        }
     }
 
 }

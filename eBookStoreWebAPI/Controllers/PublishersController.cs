@@ -19,12 +19,14 @@ namespace eBookStoreWebAPI.Controllers
             _publisherRepository = publisherRepository;
         }
         [HttpGet]
+        [Authorize(Roles = "Administration")]
         [EnableQuery]
         public IActionResult GetAll()
         {
             return Ok(_publisherRepository.GetAll());
         }
         [HttpGet("get-by-id")]
+        [Authorize(Roles = "Administration")]
         [EnableQuery]
         public IActionResult GetById([FromODataUri] int key)
         {

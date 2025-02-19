@@ -4,21 +4,23 @@
     ViewData["Title"] = "Home page";
 }
 
-<h2>Login</h2>
+<h2 class="text-center mb-4">Login</h2>
 
 @if (!string.IsNullOrEmpty(Model.ErrorMessage))
 {
-    <p style="color: red">@Model.ErrorMessage</p>
+    <div class="alert alert-danger text-center">@Model.ErrorMessage</div>
 }
 
-<form method="post">
-    <div>
-        <label>Email:</label>
-        <input type="email" asp-for="LoginDto.Email" required />
-    </div>
-    <div>
-        <label>Password:</label>
-        <input type="password" asp-for="LoginDto.Password" required />
-    </div>
-    <button type="submit">Login</button>
-</form>
+<div class="d-flex justify-content-center">
+    <form method="post" class="p-4 shadow rounded bg-light" style="width: 350px;">
+        <div class="mb-3">
+            <label class="form-label">Email</label>
+            <input type="email" asp-for="LoginDto.Email" class="form-control" required />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Password</label>
+            <input type="password" asp-for="LoginDto.Password" class="form-control" required />
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Login</button>
+    </form>
+</div>

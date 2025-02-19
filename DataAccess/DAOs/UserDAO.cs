@@ -24,6 +24,17 @@ namespace DataAccess.DAOs
                 .Include(u => u.Role)
                 .FirstOrDefault(u => u.email_address == email && u.password == password);
         }
+
+        public void Update(User user)
+        {
+            _context.Users.Update(user);
+            _context.SaveChanges();
+        }
+
+        public User GetById(int userId)
+        {
+            return _context.Users.Find(userId);
+        }
     }
 
 }

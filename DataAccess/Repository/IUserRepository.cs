@@ -10,5 +10,7 @@ namespace DataAccess.Repository
     public interface IUserRepository
     {
         User? Authenticate(string email, string password);
+        User GetById(int id);
+        void Update(User user);
     }
 }

@@ -24,6 +24,7 @@ namespace eBookStoreWebAPI.Controllers
 
         // GET: odata/Authors
         [HttpGet]
+        [Authorize(Roles = "Administration")]
         [EnableQuery]
         public IActionResult GetAll()
         {
@@ -31,6 +32,7 @@ namespace eBookStoreWebAPI.Controllers
         }
 
         [EnableQuery]
+        [Authorize(Roles = "Administration")]
         [HttpGet("get-by-id")] // GET /odata/Authors(1)
         public IActionResult GetById([FromODataUri] int key)
         {

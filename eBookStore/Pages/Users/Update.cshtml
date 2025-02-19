@@ -1,0 +1,57 @@
+﻿@page
+@model eBookStore.Pages.Users.UpdateModel
+@{
+}
+
+<h2>User Information</h2>
+
+<form method="post">
+    <div class="form-group">
+        <label for="user_id">User ID</label>
+        <input type="text" id="user_id" name="User.user_id" class="form-control" value="@Model.User.user_id" readonly />
+    </div>
+
+    <div class="form-group">
+        <label for="email_address">Email Address</label>
+        <input type="email" id="email_address" name="User.email_address" class="form-control" value="@Model.User.email_address" required />
+    </div>
+
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="User.password" class="form-control" required />
+    </div>
+
+    <div class="form-group">
+        <label for="first_name">First Name</label>
+        <input type="text" id="first_name" name="User.first_name" class="form-control" value="@Model.User.first_name" required />
+    </div>
+
+    <div class="form-group">
+        <label for="middle_name">Middle Name</label>
+        <input type="text" id="middle_name" name="User.middle_name" class="form-control" value="@Model.User.middle_name" />
+    </div>
+
+    <div class="form-group">
+        <label for="last_name">Last Name</label>
+        <input type="text" id="last_name" name="User.last_name" class="form-control" value="@Model.User.last_name" required />
+    </div>
+
+    <div class="form-group">
+        <label for="role_id">Role</label>
+        <input type="text" class="form-control" value="@(Model.User.role_id == 1 ? "Admin" : "User")" readonly />
+        <input type="hidden" name="User.role_id" value="@Model.User.role_id" />
+    </div>
+
+    <div class="form-group">
+        <label for="pub_id">Publisher ID</label>
+        <input type="text" id="pub_id" name="User.pub_id" class="form-control" value="@Model.User.pub_id" required />
+    </div>
+
+    <div class="form-group">
+        <label for="hire_date">Hire Date</label>
+        <input type="date" id="hire_date" name="User.hire_date" class="form-control" value="@Model.User.hire_date.ToString("yyyy-MM-dd")" required />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a asp-page="Index" class="btn btn-secondary">Cancel</a>
+</form>
